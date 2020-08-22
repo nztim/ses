@@ -1,0 +1,41 @@
+{
+    "name": "nztim/ses",
+    "description": "SES Webhook Handler",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "nztim/commandbus": "^3.0",
+        "nztim/logger2": "^2.2",
+        "nztim/mailer2": "^4.0",
+        "nztim/sns": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NZTim\\SES\\": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/nztim/commandbus"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nztim/logger2"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nztim/mailer2"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nztim/sns"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Tim",
+            "email": "tim@nztim.com"
+        }
+    ]
+}
