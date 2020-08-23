@@ -78,8 +78,13 @@ class SesEvent
 
     public function message(): string
     {
+        // Bounce types -------------------------------------------------------
+        // Includes normal bounces, suppressions, mailbox full, and various rejections. This should include blocked for spam.
+        // Descriptions are found here: https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#bounce-types
         if (in_array($this->type(), [SesEvent::TYPE_BOUNCE, SesEvent::TYPE_SOFT_FAIL])) {
-            return $this->get('bounce.bounceSubType') . ' ' . $this->get('bounce.bouncedRecipients.diagnosticCode');
+            $message = $this->get('bounce.bounceSubType');
+            $diagnostic = $this->get('bounce.bouncedRecipients.0.diagnosticCode');
+            return $message . ($diagnostic ? ': ' . $diagnostic : '');
         }
         if ($this->type() === SesEvent::TYPE_COMPLAINT) {
             return $this->get('complaint.complaintFeedbackType');
