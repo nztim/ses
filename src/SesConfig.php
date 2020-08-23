@@ -29,12 +29,6 @@ class SesConfig
         return filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : null;
     }
 
-    public function bounceRecipient(): ?string
-    {
-        $email = strval($this->config->get('bounce_recipient'));
-        return filter_var($email, FILTER_VALIDATE_EMAIL) ? $email : null;
-    }
-
     public function filterArn(string $arn): bool
     {
         foreach (config('ses.arns') as $pattern) {
