@@ -92,6 +92,22 @@ class SesEvent
         return ''; // TYPE_DELIVERY
     }
 
+    public function headers(): array
+    {
+        return array_wrap($this->get('mail.headers'));
+    }
+
+    public function header(string $key): string
+    {
+        foreach ($this->headers() as $header) {
+            if (($header['name'] ?? '') == $key) {
+                $value = $header['value'] ?? '';
+                return is_string($value) ? $value : var_export($value, true);
+            }
+        }
+        return '';
+    }
+
     public function data(): array
     {
         return $this->data;
