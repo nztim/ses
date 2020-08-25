@@ -100,7 +100,7 @@ class SesEvent
     public function header(string $key): string
     {
         foreach ($this->headers() as $header) {
-            if (($header['name'] ?? '') == $key) {
+            if (($header['name'] ?? '') === $key) {
                 $value = $header['value'] ?? '';
                 return is_string($value) ? $value : var_export($value, true);
             }
