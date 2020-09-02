@@ -5,7 +5,7 @@
     "require": {
         "php": ">=7.4",
         "nztim/commandbus": "^3.0",
-        "nztim/logger2": "^2.2",
+        "nztim/logger2": "^3.0",
         "nztim/mailer2": "^4.0",
         "nztim/sns": "^2.0"
     },
