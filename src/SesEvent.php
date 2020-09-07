@@ -9,6 +9,7 @@ class SesEvent
 {
     private array $data;
     private string $type;
+    private Carbon $date;
 
     public function __construct(string $message)
     {
@@ -17,6 +18,12 @@ class SesEvent
             throw new InvalidArgumentException('Unsuccessful json_decode of SNS message: ' . $message);
         }
         $this->data = $data;
+        // SES changes message date header to UTC
+        // In the webhook time is recorded in ISO format: 2016-10-19T23:20:52.240Z
+        // 'Z' means Zulu or UTC time, need to move to local
+        // Also, it seems that sometimes the date is provided as an array instead of a string, in this case use now() i.e. the time the notification is received
+        $dateData = array_get($data, 'mail.timestamp');
+        $this->date = is_string($dateData) ?  Carbon::parse($dateData)->setTimezone('Pacific/Auckland') : now();
         switch ($this->get('notificationType')) {
             case 'Bounce':
                 $this->type = $this->get('bounce.bounceType') === 'Permanent' ? SesEvent::TYPE_BOUNCE : SesEvent::TYPE_SOFT_FAIL;
@@ -54,10 +61,7 @@ class SesEvent
 
     public function date(): Carbon
     {
-        // SES changes message date header to UTC
-        // In the webhook time is recorded in ISO format: 2016-10-19T23:20:52.240Z
-        // 'Z' means Zulu or UTC time, need to move to local
-        return Carbon::parse($this->get('mail.timestamp'))->setTimezone('Pacific/Auckland');
+        return $this->date;
     }
 
     public function sender(): string
