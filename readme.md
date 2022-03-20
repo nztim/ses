@@ -23,3 +23,7 @@ Handles SES webhooks sent via SNS.
 * Set up listeners for `SesEvent` and handle the events accordingly.
 * `$event->type()` can be SesEvent::TYPE_BOUNCE, TYPE_SOFT_FAIL, TYPE_COMPLAINT or TYPE_DELIVERY
 * See the class for other methods available or get all the data with `data()`
+
+### Upgrade
+
+* 4.0: Requires PHP 8, laravel-systems 2.0 (Laravel 9)
