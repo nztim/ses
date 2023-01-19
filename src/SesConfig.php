@@ -13,16 +13,6 @@ class SesConfig
         $this->config = $config;
     }
 
-    public function arns(): array
-    {
-        return $this->config->get('ses.arns', []);
-    }
-
-    public function logSnsSubs(): bool
-    {
-        return boolval($this->config->get('ses.log_sns_subs', false));
-    }
-
     public function snsSubsRecipient(): ?string
     {
         $email = strval($this->config->get('ses.sns_subs_recipient'));

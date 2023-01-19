@@ -23,14 +23,12 @@ class HandleSnsUnsubscribe
 
     public function handle(UnsubscribeConfirmationEvent $event)
     {
-        if (!$this->config->filterArn($event->arn())) {
+        if (!$this->config->filterArn($event->arn)) {
             return;
         }
-        if ($this->config->logSnsSubs()) {
-            $this->logger->info('sns', 'Unsubscribe confirmation: ' . $event->message(), $event->data());
-        }
+        $this->logger->info('sns', 'Unsubscribe confirmation: ' . $event->message, $event->data);
         if ($this->config->snsSubsRecipient()) {
-            $this->qm->add(new SesUnsubscribeEmail($this->config->snsSubsRecipient(), $event->message(), $event->data()));
+            $this->qm->add(new SesUnsubscribeEmail($this->config->snsSubsRecipient(), $event->message, $event->data));
         }
     }
 }
