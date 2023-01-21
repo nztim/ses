@@ -30,6 +30,13 @@ class SesMailDetailsTest extends TestCase
     }
 
     /** @test */
+    public function header_from()
+    {
+        $smd = $this->getMailDetails();
+        $this->assertEquals('Sender Name <sender@example.com>', $smd->headerFrom());
+    }
+
+    /** @test */
     public function arn_is_extracted()
     {
         $smd = $this->getMailDetails();

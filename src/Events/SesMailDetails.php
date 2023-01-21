@@ -33,6 +33,11 @@ class SesMailDetails
         return array_get($this->data, 'source', '');
     }
 
+    public function headerFrom(): string
+    {
+        return array_get($this->data, 'commonHeaders.from.0', '');
+    }
+
     public function arn(): string
     {
         return array_get($this->data, 'sourceArn', '');
