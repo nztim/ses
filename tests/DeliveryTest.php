@@ -14,7 +14,7 @@ class DeliveryTest extends TestCase
     {
         $notification = NotificationEvent::fromArray(['Message' => $this->deliveryData()]);
         /** @var SesDelivery $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertTrue($event instanceof SesDelivery);
     }
 

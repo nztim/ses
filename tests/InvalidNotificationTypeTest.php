@@ -16,6 +16,6 @@ class InvalidNotificationTypeTest extends TestCase
         $this->expectException(RuntimeException::class);
         /** @var SesEventFactory $factory */
         $factory = app(SesEventFactory::class);
-        $factory->handle($notification);
+        $factory->process($notification);
     }
 }

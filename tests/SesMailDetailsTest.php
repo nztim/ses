@@ -130,6 +130,6 @@ class SesMailDetailsTest extends TestCase
    }
 }
 EOF;
-    return new SesMailDetails(json_decode($json, true));
+        return new SesMailDetails(json_decode($json, true));
     }
 }

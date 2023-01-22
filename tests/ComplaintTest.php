@@ -14,7 +14,7 @@ class ComplaintTest extends TestCase
     {
         $notification = NotificationEvent::fromArray(['Message' => $this->complaintData()]);
         /** @var SesComplaint $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertTrue($event instanceof SesComplaint);
     }
 
@@ -23,7 +23,7 @@ class ComplaintTest extends TestCase
     {
         $notification = NotificationEvent::fromArray(['Message' => $this->complaintData()]);
         /** @var SesComplaint $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertEquals('abuse', $event->complaintType());
     }
 

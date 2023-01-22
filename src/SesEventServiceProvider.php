@@ -6,21 +6,18 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use NZTim\SNS\Events\NotificationEvent;
 use NZTim\SNS\Events\SubscriptionConfirmationEvent;
 use NZTim\SNS\Events\UnsubscribeConfirmationEvent;
-use NZTim\SES\Listeners\HandleSnsNotification;
-use NZTim\SES\Listeners\HandleSnsSubscribe;
-use NZTim\SES\Listeners\HandleSnsUnsubscribe;
 
 class SesEventServiceProvider extends ServiceProvider
 {
     protected $listen = [
         SubscriptionConfirmationEvent::class => [
-            HandleSnsSubscribe::class,
+            SnsEventListener::class,
         ],
         UnsubscribeConfirmationEvent::class  => [
-            HandleSnsUnsubscribe::class,
+            SnsEventListener::class,
         ],
         NotificationEvent::class             => [
-            HandleSnsNotification::class,
+            SnsEventListener::class,
         ],
     ];
 }

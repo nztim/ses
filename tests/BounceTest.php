@@ -15,7 +15,7 @@ class BounceTest extends TestCase
     {
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceData('Permanent', 'General', true)]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertTrue($event instanceof SesBounce);
     }
 
@@ -25,13 +25,13 @@ class BounceTest extends TestCase
         // With DSN
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceData('Permanent', 'General', true)]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertEquals('Permanent', $event->bounceType());
         $this->assertEquals('General', $event->bounceSubType());
         // Without DSN
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceData('Permanent', 'General', false)]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertEquals('Permanent', $event->bounceType());
         $this->assertEquals('General', $event->bounceSubType());
     }
@@ -42,12 +42,12 @@ class BounceTest extends TestCase
         // With DSN
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceData('Permanent', 'General', true)]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertEquals('smtp; 550 5.1.1 <jane@example.com>... User', $event->diagnosticCode());
         // Without DSN
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceData('Permanent', 'General', false)]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertEquals('', $event->diagnosticCode());
         $this->assertEquals('General', $event->bounceSubType());
     }

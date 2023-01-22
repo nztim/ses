@@ -4,8 +4,7 @@ namespace NZTim\SES\Tests;
 
 use NZTim\Logger\Logger;
 use NZTim\Queue\QueueManager;
-use NZTim\SES\Listeners\HandleSnsSubscribe;
-use NZTim\SES\Listeners\HandleSnsUnsubscribe;
+use NZTim\SES\SesEventFactory;
 use NZTim\SNS\Events\SubscriptionConfirmationEvent;
 use NZTim\SNS\Events\UnsubscribeConfirmationEvent;
 use Tests\TestCase;
@@ -23,9 +22,7 @@ class SubscriptionUnsubTest extends TestCase
         $this->mock(Logger::class)->shouldReceive('info')->once();
         config(['ses.sns_subs_recipient' => 'admin@example.org']);
         $this->mock(QueueManager::class)->shouldReceive('add')->once();
-        /** @var HandleSnsSubscribe $handleSub */
-        $handleSub = app(HandleSnsSubscribe::class);
-        $handleSub->handle($subEvent);
+        $this->getFactory()->process($subEvent);
     }
 
     /** @test */
@@ -38,8 +35,11 @@ class SubscriptionUnsubTest extends TestCase
         $this->mock(Logger::class)->shouldReceive('info')->once();
         config(['ses.sns_subs_recipient' => 'admin@example.org']);
         $this->mock(QueueManager::class)->shouldReceive('add')->once();
-        /** @var HandleSnsUnsubscribe $handleSub */
-        $handleSub = app(HandleSnsUnsubscribe::class);
-        $handleSub->handle($unsubEvent);
+        $this->getFactory()->process($unsubEvent);
+    }
+
+    private function getFactory(): SesEventFactory
+    {
+        return app(SesEventFactory::class);
     }
 }
