@@ -69,7 +69,7 @@ class BounceTest extends TestCase
             ['Transient', 'AttachmentRejected', false, BounceClassification::Rejected],
         ];
         foreach ($tests as $test) {
-            $event = $this->getEventFactory()->handle(NotificationEvent::fromArray(['Message' => $this->bounceData($test[0], $test[1], $test[2])]));
+            $event = $this->getEventFactory()->process(NotificationEvent::fromArray(['Message' => $this->bounceData($test[0], $test[1], $test[2])]));
             /** @var SesBounce $event */
             $this->assertTrue($event instanceof SesBounce);
 //            dd($event->bounceType(), $event->bounceSubType(), $test);
@@ -83,7 +83,7 @@ class BounceTest extends TestCase
     {
         $notification = NotificationEvent::fromArray(['Message' => $this->bounceDataOutOfOffice()]);
         /** @var SesBounce $event */
-        $event = $this->getEventFactory()->handle($notification);
+        $event = $this->getEventFactory()->process($notification);
         $this->assertTrue($event->possibleAutoresponderFailure());
     }
 
