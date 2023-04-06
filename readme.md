@@ -21,5 +21,6 @@ Handles SES webhooks sent via SNS.
 
 ### Upgrade
 
+* 6.0: PHP 8.1, laravel-systems 3.9 (Laravel 10).
 * 5.0: Major revision incl config and all SES events. Update will require refactoring all use of the package.
-* 4.0: Requires PHP 8, laravel-systems 2.0 (Laravel 9)
+* 4.0: Requires PHP 8, laravel-systems 2.0 (Laravel 9).
