@@ -43,6 +43,11 @@ class SesMailDetails
         return array_get($this->data, 'sourceArn', '');
     }
 
+    public function sourceIp(): string
+    {
+        return array_get($this->data, 'sourceIp', '');
+    }
+
     public function recipient(): string
     {
         $destinations = array_get($this->data, 'destination', []);
